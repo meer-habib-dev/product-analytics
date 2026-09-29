@@ -1,0 +1,35 @@
+{
+  "name": "product-analytics",
+  "private": true,
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:convex": "convex dev",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck && tsc -p convex --noEmit",
+    "test": "turbo run test && vitest run --project convex",
+    "test:convex": "vitest run --project convex",
+    "lint": "turbo run lint",
+    "seed:demo": "tsx scripts/seed-demo.ts"
+  },
+  "dependencies": {
+    "@analytics/shared": "workspace:*",
+    "@auth/core": "^0.41.1",
+    "@convex-dev/auth": "^0.0.95",
+    "convex": "^1.46.0"
+  },
+  "devDependencies": {
+    "@edge-runtime/vm": "^5.0.0",
+    "@types/node": "^22.10.0",
+    "convex-test": "^0.0.60",
+    "tsx": "^4.19.0",
+    "turbo": "^2.11.5",
+    "typescript": "~5.9.3",
+    "vitest": "^3.2.4"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}
