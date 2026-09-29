@@ -1,0 +1,43 @@
+{
+  "name": "@analytics/react-native",
+  "version": "0.1.0",
+  "description": "React Native / Expo SDK for the self-hosted product analytics platform",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "expo-application": "*",
+    "expo-device": "*",
+    "react-native": "*",
+    "react-native-mmkv": ">=4.0.0"
+  },
+  "devDependencies": {
+    "@analytics/shared": "workspace:*",
+    "expo-application": "^57.0.3",
+    "expo-device": "^57.0.2",
+    "react-native": "~0.87.1",
+    "react-native-mmkv": "^4.3.2",
+    "react-native-nitro-modules": "^0.37.1",
+    "tsup": "^8.5.0",
+    "typescript": "~5.9.3",
+    "vitest": "^3.2.4"
+  }
+}
