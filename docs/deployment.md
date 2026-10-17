@@ -26,7 +26,7 @@ Production is one Convex deployment (database, ingestion endpoint, auth) plus th
 2. **Root Directory:** `apps/dashboard`. `apps/dashboard/vercel.json` already sets the install and build commands:
    ```
    install: cd ../.. && bun install --frozen-lockfile
-   build:   cd ../.. && bunx convex deploy --cmd 'bunx turbo run build --filter=@analytics/dashboard' --cmd-url-env-var-name NEXT_PUBLIC_CONVEX_URL
+   build:   cd ../.. && sh scripts/vercel-build.sh   (convex deploy, then the dashboard build)
    ```
 3. Environment variables (Production):
 
