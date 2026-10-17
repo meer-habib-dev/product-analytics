@@ -69,6 +69,12 @@ export class AnalyticsClient {
         return;
       }
       this.debug = config.debug ?? false;
+      // Checked first so a build without keys can pass `enabled: false` quietly.
+      if (config.enabled === false) {
+        this.status = "disabled";
+        this.pending = [];
+        return;
+      }
       if (!config.apiKey || !config.host) {
         console.warn("[analytics] init() requires apiKey and host; analytics is disabled.");
         this.status = "disabled";

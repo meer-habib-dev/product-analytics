@@ -284,3 +284,16 @@ describe("errors", () => {
     expect(h.server.requests).toHaveLength(0);
   });
 });
+
+describe("disabled builds", () => {
+  test("enabled: false with no key stays silent and sends nothing", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    const h = createHarness();
+    h.client.init({ apiKey: "", host: "", enabled: false });
+    h.client.track("app_opened");
+    await h.client.flush();
+    expect(warn).not.toHaveBeenCalled();
+    expect(h.server.requests).toHaveLength(0);
+    warn.mockRestore();
+  });
+});
