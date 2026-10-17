@@ -31,6 +31,7 @@ import type * as http from "../http.js";
 import type * as lib_authz from "../lib/authz.js";
 import type * as lib_random from "../lib/random.js";
 import type * as lib_ranges from "../lib/ranges.js";
+import type * as lib_signupPolicy from "../lib/signupPolicy.js";
 import type * as lib_validators from "../lib/validators.js";
 import type * as people_identity from "../people/identity.js";
 import type * as people_merge from "../people/merge.js";
@@ -71,6 +72,7 @@ declare const fullApi: ApiFromModules<{
   "lib/authz": typeof lib_authz;
   "lib/random": typeof lib_random;
   "lib/ranges": typeof lib_ranges;
+  "lib/signupPolicy": typeof lib_signupPolicy;
   "lib/validators": typeof lib_validators;
   "people/identity": typeof people_identity;
   "people/merge": typeof people_merge;

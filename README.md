@@ -102,7 +102,8 @@ pnpm seed:demo --host https://<deployment>.convex.site --key proj_xxx --users 60
 - [Data model](docs/data-model.md): every table and index and why it exists, plus aggregation correctness
 - [Event conventions](docs/event-conventions.md): naming, reserved `$` events, properties and limits
 - [SDK reference](packages/react-native-sdk/README.md): API, configuration, queue, retries and privacy
-- [Deployment](docs/deployment.md): Convex, auth keys, dashboard hosting, custom domains
+- [Production deployment](docs/deployment.md): Convex + Vercel runbook, access lock, checklist
+- [Connecting the Clarity app](docs/clarity-integration.md)
 
 ## Tech choices
 

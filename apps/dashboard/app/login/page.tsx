@@ -24,8 +24,15 @@ export default function LoginPage() {
     try {
       await signIn("password", formData);
       router.replace("/");
-    } catch {
-      setError(flow === "signIn" ? "Invalid email or password." : "Could not create the account. Use a password of 8+ characters.");
+    } catch (e) {
+      const notAllowed = e instanceof Error && e.message.includes("not allowed");
+      setError(
+        notAllowed
+          ? "This email is not allowed to access this dashboard."
+          : flow === "signIn"
+            ? "Invalid email or password."
+            : "Could not create the account. Use a password of 8+ characters.",
+      );
     } finally {
       setPending(false);
     }

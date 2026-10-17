@@ -70,3 +70,15 @@ describe("computeFunnel", () => {
     expect(result.breakdown).toEqual([{ value: "1.1", counts: [1, 1] }]);
   });
 });
+
+describe("sign-up policy", () => {
+  test("open without configuration, restricted with it", async () => {
+    const { isEmailAllowed, policyFromEnv } = await import("../lib/signupPolicy");
+    expect(isEmailAllowed("anyone@x.com", policyFromEnv({}))).toBe(true);
+    const policy = policyFromEnv({ AUTH_ALLOWED_EMAILS: "Me@Example.com ", AUTH_ALLOWED_DOMAINS: "team.io" });
+    expect(isEmailAllowed("me@example.com", policy)).toBe(true);
+    expect(isEmailAllowed("dev@team.io", policy)).toBe(true);
+    expect(isEmailAllowed("dev@evilteam.io", policy)).toBe(false);
+    expect(isEmailAllowed("stranger@example.com", policy)).toBe(false);
+  });
+});
