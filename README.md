@@ -47,18 +47,21 @@ Requirements: Node 22+, Bun 1.3+, a Convex account (or a self-hosted Convex back
 ```bash
 bun install
 
-# 1. Create a Convex deployment and generate types (writes CONVEX_DEPLOYMENT to .env.local)
+# 1. Create a Convex deployment and generate types.
+#    Writes CONVEX_URL / CONVEX_SITE_URL to .env.local; the dashboard reads them automatically.
 bunx convex dev
 
-# 2. One-time: configure Convex Auth keys (JWT_PRIVATE_KEY, JWKS, SITE_URL) on the deployment
+# 2. One-time, in a second terminal: configure Convex Auth keys on the deployment.
+#    When asked for the local web server URL, enter http://localhost:3000
 bunx @convex-dev/auth
 
-# 3. Dashboard env
-cp apps/dashboard/.env.example apps/dashboard/.env.local   # set NEXT_PUBLIC_CONVEX_URL
-bun run dev:dashboard                                      # http://localhost:3000
+# 3. Start the dashboard
+bun run dev:dashboard
 ```
 
-Then, in the dashboard: create an account, create a project (for example "Ringo"), and copy its `proj_…` key from the setup page.
+Then open http://localhost:3000.
+
+In the dashboard, create an account, create a project (for example "Ringo"), and copy its `proj_…` key from the setup page.
 
 Integrate an app (about five minutes):
 
