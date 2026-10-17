@@ -19,8 +19,23 @@ function readRootEnv(): Record<string, string> {
 }
 
 const rootEnv = readRootEnv();
-const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL || rootEnv.CONVEX_URL || "";
-const ingestionHost = process.env.NEXT_PUBLIC_INGESTION_HOST || rootEnv.CONVEX_SITE_URL || "";
+
+/** `convex dev` names the variables after the framework it detects, so accept any of them. */
+function firstOf(env: Record<string, string>, names: string[]): string | undefined {
+  return names.map((name) => env[name]).find((value) => value !== undefined && value.length > 0);
+}
+
+const PREFIXES = ["", "NEXT_PUBLIC_", "VITE_", "EXPO_PUBLIC_", "PUBLIC_", "REACT_APP_"];
+// "dev:happy-animal-123 # team: …" → https://happy-animal-123.convex.cloud
+const deploymentName = rootEnv.CONVEX_DEPLOYMENT?.split(":")[1]?.trim();
+const convexUrl =
+  process.env.NEXT_PUBLIC_CONVEX_URL ||
+  firstOf(rootEnv, PREFIXES.map((p) => `${p}CONVEX_URL`)) ||
+  (deploymentName ? `https://${deploymentName}.convex.cloud` : "");
+const ingestionHost =
+  process.env.NEXT_PUBLIC_INGESTION_HOST ||
+  firstOf(rootEnv, PREFIXES.map((p) => `${p}CONVEX_SITE_URL`)) ||
+  convexUrl.replace(/\.convex\.cloud\/?$/, ".convex.site");
 
 const nextConfig: NextConfig = {
   // Workspace packages ship TypeScript source.
