@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
-  "installCommand": "cd ../.. && pnpm install --frozen-lockfile",
-  "buildCommand": "cd ../.. && npx convex deploy --cmd 'pnpm --filter @analytics/dashboard build' --cmd-url-env-var-name NEXT_PUBLIC_CONVEX_URL"
+  "installCommand": "cd ../.. && bun install --frozen-lockfile",
+  "buildCommand": "cd ../.. && bunx convex deploy --cmd 'bunx turbo run build --filter=@analytics/dashboard' --cmd-url-env-var-name NEXT_PUBLIC_CONVEX_URL"
 }

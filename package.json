@@ -1,7 +1,11 @@
 {
   "name": "product-analytics",
   "private": true,
-  "packageManager": "pnpm@10.33.0",
+  "packageManager": "bun@1.3.11",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev": "turbo run dev",
     "dev:convex": "convex dev",
@@ -10,7 +14,9 @@
     "test": "vitest run",
     "test:convex": "vitest run --project convex",
     "lint": "turbo run lint",
-    "seed:demo": "tsx scripts/seed-demo.ts"
+    "seed:demo": "bun scripts/seed-demo.ts",
+    "dev:dashboard": "turbo run dev --filter=@analytics/dashboard",
+    "build:sdk": "turbo run build --filter=@analytics/react-native"
   },
   "dependencies": {
     "@analytics/shared": "workspace:*",
@@ -22,15 +28,12 @@
     "@edge-runtime/vm": "^5.0.0",
     "@types/node": "^22.10.0",
     "convex-test": "^0.0.60",
-    "tsx": "^4.19.0",
     "turbo": "^2.11.5",
     "typescript": "~5.9.3",
     "vite": "^7.3.6",
     "vitest": "^3.2.4"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
-  }
+  "trustedDependencies": [
+    "esbuild"
+  ]
 }

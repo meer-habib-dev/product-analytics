@@ -4,11 +4,11 @@ Production is one Convex deployment (database, ingestion endpoint, auth) plus th
 
 ## 1. Convex
 
-1. Create the project once from your machine: `npx convex dev` (log in, pick "create a new project"). This also writes `convex/_generated`.
+1. Create the project once from your machine: `bun install`, then `bunx convex dev` (log in, pick "create a new project"). This also writes `convex/_generated`.
 2. Convex dashboard → your project → **Production** → Settings → **Generate production deploy key**. Copy it.
 3. Configure auth on the production deployment (from your machine):
    ```bash
-   npx @convex-dev/auth --prod
+   bunx @convex-dev/auth --prod
    ```
    This sets `JWT_PRIVATE_KEY`, `JWKS` and `SITE_URL`. Set `SITE_URL` to the dashboard URL you will use (e.g. `https://analytics.example.com`).
 4. Lock the dashboard to your team (Convex dashboard → Production → Settings → Environment variables):
@@ -25,8 +25,8 @@ Production is one Convex deployment (database, ingestion endpoint, auth) plus th
 1. Vercel → **Add New Project** → import `meer-habib-dev/product-analytics`.
 2. **Root Directory:** `apps/dashboard`. `apps/dashboard/vercel.json` already sets the install and build commands:
    ```
-   install: cd ../.. && pnpm install --frozen-lockfile
-   build:   cd ../.. && npx convex deploy --cmd 'pnpm --filter @analytics/dashboard build' --cmd-url-env-var-name NEXT_PUBLIC_CONVEX_URL
+   install: cd ../.. && bun install --frozen-lockfile
+   build:   cd ../.. && bunx convex deploy --cmd 'bunx turbo run build --filter=@analytics/dashboard' --cmd-url-env-var-name NEXT_PUBLIC_CONVEX_URL
    ```
 3. Environment variables (Production):
 
@@ -44,7 +44,7 @@ Every push to `main` now deploys Convex functions + schema and the dashboard tog
 
 ```bash
 # Sign in at the dashboard, create a project, copy its proj_ key, then:
-pnpm seed:demo --host https://<deployment>.convex.site --key proj_xxx --users 20 --days 3
+bun run seed:demo --host https://<deployment>.convex.site --key proj_xxx --users 20 --days 3
 ```
 
 The overview should fill in within seconds. Delete the demo project afterwards, or seed a throwaway project.
@@ -65,8 +65,8 @@ The key is public and write-only. If it leaks or is abused, create a new key in 
 Until the SDK is published to a registry, install it from a tarball:
 
 ```bash
-pnpm --filter @analytics/react-native build
-cd packages/react-native-sdk && pnpm pack        # → analytics-react-native-0.1.0.tgz
+bun run build:sdk
+cd packages/react-native-sdk && bun pm pack      # → analytics-react-native-0.1.0.tgz
 ```
 
 Commit the tarball into the app repo (e.g. `vendor/`) and install it with `npx expo install ./vendor/analytics-react-native-0.1.0.tgz`. To publish instead, rename the package to a scope you own on npm (e.g. `@meer-habib-dev/analytics-react-native`) and `npm publish --access public`. The build inlines `@analytics/shared`, so the package has no workspace dependencies.

@@ -112,4 +112,4 @@ AnalyticsClient (public API, never throws)
  └─ PlatformBindings  storage (MMKV), context (Expo), AppState, ErrorUtils
 ```
 
-The core is platform-free and unit tested in Node (`pnpm test`).
+The core is platform-free and unit tested in Node (`bun run test`).

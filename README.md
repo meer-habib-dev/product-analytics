@@ -42,20 +42,20 @@ docs/                        Architecture, data model, event conventions, deploy
 
 ## Quick start
 
-Requirements: Node 22+, pnpm 10, a Convex account (or a self-hosted Convex backend).
+Requirements: Node 22+, Bun 1.3+, a Convex account (or a self-hosted Convex backend).
 
 ```bash
-pnpm install
+bun install
 
 # 1. Create a Convex deployment and generate types (writes CONVEX_DEPLOYMENT to .env.local)
-npx convex dev
+bunx convex dev
 
 # 2. One-time: configure Convex Auth keys (JWT_PRIVATE_KEY, JWKS, SITE_URL) on the deployment
-npx @convex-dev/auth
+bunx @convex-dev/auth
 
 # 3. Dashboard env
 cp apps/dashboard/.env.example apps/dashboard/.env.local   # set NEXT_PUBLIC_CONVEX_URL
-pnpm --filter @analytics/dashboard dev                     # http://localhost:3000
+bun run dev:dashboard                                      # http://localhost:3000
 ```
 
 Then, in the dashboard: create an account, create a project (for example "Ringo"), and copy its `proj_…` key from the setup page.
@@ -82,19 +82,19 @@ await analytics.flush();    // optional
 No device handy? Send demo traffic through the real endpoint:
 
 ```bash
-pnpm seed:demo --host https://<deployment>.convex.site --key proj_xxx --users 60 --days 14
+bun run seed:demo --host https://<deployment>.convex.site --key proj_xxx --users 60 --days 14
 ```
 
 ## Scripts
 
 | Command | What it does |
 | --- | --- |
-| `pnpm dev:convex` | Run `convex dev` (pushes functions, regenerates `convex/_generated`) |
-| `pnpm --filter @analytics/dashboard dev` | Dashboard dev server |
-| `pnpm typecheck` | Typecheck every package and the Convex functions |
-| `pnpm test` | All tests: Convex functions (convex-test), SDK, shared |
-| `pnpm build` | Build the SDK (tsup) and the dashboard |
-| `pnpm seed:demo` | Send demo traffic to a project |
+| `bun run dev:convex` | Run `convex dev` (pushes functions, regenerates `convex/_generated`) |
+| `bun run dev:dashboard` | Dashboard dev server |
+| `bun run typecheck` | Typecheck every package and the Convex functions |
+| `bun run test` | All tests: Convex functions (convex-test), SDK, shared |
+| `bun run build` | Build the SDK (tsup) and the dashboard |
+| `bun run seed:demo` | Send demo traffic to a project |
 
 ## Documentation
 
@@ -107,4 +107,4 @@ pnpm seed:demo --host https://<deployment>.convex.site --key proj_xxx --users 60
 
 ## Tech choices
 
-pnpm + Turborepo + TypeScript everywhere. Convex is the whole backend: database, HTTP ingestion, queries, mutations, actions, crons, auth and real-time. There is no additional database, queue or cache. That's deliberate for V1; [docs/architecture.md](docs/architecture.md#scaling-path) describes what to change, and when, if volume ever demands it.
+Bun (package manager and script runner) + Turborepo + TypeScript everywhere. Tests run on Vitest and the dashboard on Next.js, under Node. Convex is the whole backend: database, HTTP ingestion, queries, mutations, actions, crons, auth and real-time. There is no additional database, queue or cache. That's deliberate for V1; [docs/architecture.md](docs/architecture.md#scaling-path) describes what to change, and when, if volume ever demands it.

@@ -3,7 +3,7 @@
  * endpoint, exactly like the SDK would. Useful for trying the dashboard
  * without a device, and as an end-to-end smoke test of ingestion.
  *
- *   pnpm seed:demo --host https://<deployment>.convex.site --key proj_xxx [--users 60] [--days 14]
+ *   bun run seed:demo --host https://<deployment>.convex.site --key proj_xxx [--users 60] [--days 14]
  */
 import { BATCH_PATH, type BatchResponse, type WireEvent } from "@analytics/shared";
 import { randomUUID } from "node:crypto";
